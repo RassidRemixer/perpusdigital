@@ -22,7 +22,7 @@ Route::get('/', function () {
 //     return view('admin.master');
 // });
 Route::group(['middleware' => ['role:admin']], function () {
-    Route::get('/admincreate/{id}', [DashboardController::class, 'view']);
+    Route::get('/admincreate', [DashboardController::class, 'view']);
     Route::post('/addadmin', [DashboardController::class, 'store'])->name('addadmin');
     Route::post('/editadmin', [DashboardController::class, 'edit'])->name('editadmin');
     Route::get('/delete', [DashboardController::class, 'delete'])->name('delete');

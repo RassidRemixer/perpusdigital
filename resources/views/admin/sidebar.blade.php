@@ -140,10 +140,10 @@
           </li> --}}
           @role('admin')
           <li class="nav-item">
-            <a href="/admincreate/{id}" class="nav-link">
+            <a href="/admincreate" class="nav-link">
               <i class="nav-icon fa-solid fa-user-tie"></i>
               <p>
-                Admin
+                Petugas
               </p>
             </a>
           </li>

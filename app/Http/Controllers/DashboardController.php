@@ -25,12 +25,13 @@ class DashboardController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function view($id)
+    public function view()
     {
-        $user = User::findOrFail($id);
+        // $user = User::findOrFail($id);
         $data = User::where('role', 'petugas')->get();
 
-        return view('admin.masteradmin', ['data' => $data, 'user' => $user]);
+        // , 'user' => $user
+        return view('admin.masteradmin', ['data' => $data]);
     }
 
 
