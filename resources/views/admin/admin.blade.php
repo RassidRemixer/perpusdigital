@@ -5,12 +5,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">ADMIN</h1>
+            <h1 class="m-0">Petugas</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-              <li class="breadcrumb-item active">AdminCreate</li>
+              <li class="breadcrumb-item active">Nambahpetugas</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -21,7 +21,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title font-weight-bold">Tambah Admin</h4>
+              <h4 class="modal-title font-weight-bold">Tambah Petugas</h4>
             </div>
 
             {{-- modal add --}}
@@ -76,29 +76,29 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h4 class="modal-title font-weight-bold">Edit Admin</h4>
+                    <h4 class="modal-title font-weight-bold">Edit Petugas</h4>
                   </div>
       
                   {{-- modal add --}}
                   <div class="modal-body">
-                    <form action="{{ route('editadmin', $user->id) }}" method="POST">
+                    <form action="{{ route('editadmin') }}" method="POST">
                         @csrf
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="name">Username</label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{ $user->username }}" placeholder="Masukkan Nama" required autofocus>
+                                <input type="text" class="form-control" id="name" name="name" value="" placeholder="Masukkan Nama" required autofocus>
                             </div>
                             <div class="form-group">
                                 <label for="namalengkap">Nama Lengkap</label>
-                                <input type="text" class="form-control" id="namalengkap" name="namalengkap" value="{{ $user->namalengkap }}" placeholder="Masukkan Nama Lengkap" required>
+                                <input type="text" class="form-control" id="namalengkap" name="namalengkap" value="" placeholder="Masukkan Nama Lengkap" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}" placeholder="contoh@gmail.com" required>
+                                <input type="email" class="form-control" id="email" name="email" value="" placeholder="contoh@gmail.com" required>
                             </div>
                             <div class="form-group">
                                 <label for="alamat">Alamat</label>
-                                <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $user->alamat }}" placeholder="Masukkan Alamat" required>
+                                <input type="text" class="form-control" id="alamat" name="alamat" value="" placeholder="Masukkan Alamat" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
@@ -107,9 +107,9 @@
                             <div class="form-group">
                                 <label for="role">Role</label>
                                 <select class="form-control" id="role" name="role">
-                                    <option value="admin" {{  $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
-                                    <option value="petugas" {{  $user->role == 'petugas' ? 'selected' : '' }}>Petugas</option>
-                                    <option value="peminjam" {{  $user->role == 'peminjam' ? 'selected' : '' }}>Peminjam</option>
+                                    <option value="admin" >Admin</option>
+                                    <option value="petugas" >Petugas</option>
+                                    <option value="peminjam"  >Peminjam</option>
                                 </select>
                             </div>
                         </div>
@@ -134,8 +134,8 @@
     <!-- /.content-header -->
     <div class="card">
       <div class="card-header text-right mb-3">
-        <h3 class="card-title">Data Admin PerpusTakaan</h3>
-        <a href="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-addadmin"><i class="fas fa-plus"></i> Tambah Admin</a>
+        <h3 class="card-title">Data Petugas PerpusTakaan</h3>
+        <a href="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-addadmin"><i class="fas fa-plus"></i> Tambah Petugas</a>
       </div>
       <!-- /.card-header -->
       {{-- <div class="card-body">
