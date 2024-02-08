@@ -24,8 +24,8 @@ Route::get('/', function () {
 Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/admincreate', [DashboardController::class, 'view']);
     Route::post('/addadmin', [DashboardController::class, 'store'])->name('addadmin');
-    Route::post('/editadmin', [DashboardController::class, 'edit'])->name('editadmin');
-    Route::get('/delete', [DashboardController::class, 'delete'])->name('delete');
+    Route::put('/editadmin/{id}', [DashboardController::class, 'edit'])->name('editadmin');
+    Route::delete('/delete/{user}', [DashboardController::class, 'delete'])->name('delete');
     Route::get('/addbuku', [DashboardController::class, 'addbuku']);
     Route::post('/tambahbuku', [DashboardController::class, 'addbukuprosses'])->name('tambahbuku');
 });
