@@ -77,12 +77,7 @@
     });
   });
 
-  // Hanya jalankan auto-refresh saat dalam mode pengembangan
-  // if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-  //           setInterval(function() {
-  //               location.reload();
-  //           }, 5000); // Auto-refresh setiap 5 detik
-  //       }
+
 </script>
 
 </body>

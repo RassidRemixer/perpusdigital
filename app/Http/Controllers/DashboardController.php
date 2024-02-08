@@ -27,11 +27,11 @@ class DashboardController extends Controller
      */
     public function view()
     {
-        // $user = User::findOrFail($id);
+        // $users = User::all();
         $data = User::where('role', 'petugas')->get();
-
-        // , 'user' => $user
-        return view('admin.masteradmin', ['data' => $data]);
+        // dd($data);
+        
+        return view('admin.masteradmin', compact('data'));
     }
 
 
@@ -65,8 +65,10 @@ class DashboardController extends Controller
         
     }
 
-    public function edit(Request $request, User $user)
+    public function edit(Request $request, $id, User $user)
     {
+
+        $user = User::findOrFail($id);
         $validatedData = $request->validate([
             'name' => 'required|string|max:250',
             'namalengkap' => 'required|string|max:250',
@@ -76,12 +78,16 @@ class DashboardController extends Controller
             'role' => 'required',
         ]);
 
+        // dd($validatedData);
+
         // Periksa apakah password ada di dalam $validatedData, jika ya, hash password
-        if (isset($validatedData['password'])) {
+        if (isset($validatedData['password']) && !empty($validatedData['password'])) {
             $validatedData['password'] = Hash::make($validatedData['password']);
         }
+        
 
-        $user->update($validatedData);
+        // dd($user);
+        $user->update($request->all());
 
         // Proses selanjutnya
 
@@ -116,6 +122,16 @@ class DashboardController extends Controller
         
         return redirect('/addbuku');
     }
+
+    public function delete(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+
+        return redirect('/admincreate')->with('succes', 'data berhasil di hapus');
+    }
+
     /**
      * Display the specified resource.
      */

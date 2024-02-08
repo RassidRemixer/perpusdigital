@@ -71,62 +71,61 @@
       </div>
       <!-- /.modal -->
 
-            <!-- Modal -->
-            <div class="modal fade" id="modal-editadmin">
-              <div class="modal-dialog">
-                <div class="modal-content">
+      @foreach ($data as $item)
+      <!-- Modal Edit -->
+      <div class="modal fade" id="modal-editadmin-{{ $item->id }}">
+          <div class="modal-dialog">
+              <div class="modal-content">
                   <div class="modal-header">
-                    <h4 class="modal-title font-weight-bold">Edit Petugas</h4>
+                      <h4 class="modal-title font-weight-bold">Edit Petugas</h4>
                   </div>
-      
-                  {{-- modal add --}}
+  
+                  <!-- Formulir Edit -->
                   <div class="modal-body">
-                    <form action="{{ route('editadmin') }}" method="POST">
-                        @csrf
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="name">Username</label>
-                                <input type="text" class="form-control" id="name" name="name" value="" placeholder="Masukkan Nama" required autofocus>
-                            </div>
-                            <div class="form-group">
-                                <label for="namalengkap">Nama Lengkap</label>
-                                <input type="text" class="form-control" id="namalengkap" name="namalengkap" value="" placeholder="Masukkan Nama Lengkap" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" value="" placeholder="contoh@gmail.com" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="alamat">Alamat</label>
-                                <input type="text" class="form-control" id="alamat" name="alamat" value="" placeholder="Masukkan Alamat" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-                            </div>
-                            <div class="form-group">
-                                <label for="role">Role</label>
-                                <select class="form-control" id="role" name="role">
-                                    <option value="admin" >Admin</option>
-                                    <option value="petugas" >Petugas</option>
-                                    <option value="peminjam"  >Peminjam</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default font-weight-bold" data-dismiss="modal">BATAL</button>
-                            <button type="submit" class="btn btn-primary font-weight-bold">SIMPAN</button>
-                        </div>
-                    </form>
-                </div>
-                
+                      <form action="{{ route('editadmin', ['id' => $item->id]) }}" method="POST">
+                          @csrf
+                          @method('PUT')
+                          <div class="card-body">
+                              <div class="form-group">
+                                  <label for="name">Username</label>
+                                  <input type="text" class="form-control" id="name" name="name" value="{{ $item->name }}" placeholder="Masukkan Nama" autofocus>
+                              </div>
+                              <div class="form-group">
+                                  <label for="namalengkap">Nama Lengkap</label>
+                                  <input type="text" class="form-control" id="namalengkap" name="namalengkap" value="{{ $item->namalengkap }}" placeholder="Masukkan Nama Lengkap" required>
+                              </div>
+                              <div class="form-group">
+                                  <label for="email">Email</label>
+                                  <input type="email" class="form-control" id="email" name="email" value="{{ $item->email }}" placeholder="contoh@gmail.com" required>
+                              </div>
+                              <div class="form-group">
+                                  <label for="alamat">Alamat</label>
+                                  <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $item->alamat }}" placeholder="Masukkan Alamat" required>
+                              </div>
+                              <div class="form-group">
+                                  <label for="password">Password</label>
+                                  <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan Ulang">
+                              </div>
+                              <div class="form-group">
+                                  <label for="role">Role</label>
+                                  <select class="form-control" id="role" name="role">
+                                      <option value="admin" {{ $item->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                                      <option value="petugas" {{ $item->role == 'petugas' ? 'selected' : '' }}>Petugas</option>
+                                      <option value="peminjam" {{ $item->role == 'peminjam' ? 'selected' : '' }}>Peminjam</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="modal-footer justify-content-between">
+                              <button type="button" class="btn btn-default font-weight-bold" data-dismiss="modal">BATAL</button>
+                              <button type="submit" class="btn btn-primary font-weight-bold">SIMPAN</button>
+                          </div>
+                      </form>
                   </div>
-                </div>
-                <!-- /.modal-content -->
               </div>
-              <!-- /.modal-dialog -->
-            </div>
-            <!-- /.modal -->
+          </div>
+      </div>
+      @endforeach
+  
 
 
 
@@ -137,32 +136,7 @@
         <h3 class="card-title">Data Petugas PerpusTakaan</h3>
         <a href="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-addadmin"><i class="fas fa-plus"></i> Tambah Petugas</a>
       </div>
-      <!-- /.card-header -->
-      {{-- <div class="card-body">
-        <table id="example1" class="table table-bordered table-striped">
-          <thead>
-          <tr>
-            <th>Nama</th>
-            <th>Username</th>
-            <th>Alamat</th>
-            <th>Pilihan</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>Trident</td>
-            <td>Internet
-              Explorer 4.0
-            </td>
-            <td>Win 95+</td>
-            <td> 
-              <a href="" class="btn bt-warning btn-sm"><i class="fas fa-edit"></i></a>
-              <a href="" class="btn bt-danger btn-sm"><i class="fas fa-trash"></i></a>
-            </td>
-          </tr>
-          </tfoot>
-        </table>
-      </div> --}}
+
       <div class="card-body">
         <table class="table table-bordered table-striped" style="border-width: 2px; border-color: dark;">
             <thead>
@@ -177,17 +151,25 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data as $key => $item)
+                @foreach ($data as $item)
                     <tr>
-                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $item->id }}</td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->namalengkap }}</td>
                         <td>{{ $item->email }}</td>
                         {{-- <td>{{ $item->password }}</td> --}}
                         <td>{{ $item->alamat }}</td>
                         <td>
-                            <a href=" " class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-editadmin"><i class="fas fa-edit"></i></a>
-                            <a href="{{ route('delete', ['id' => $item->id]) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                          <a href="#" class="btn btn-warning btn-sm editBtn" data-toggle="modal" data-target="#modal-editadmin-{{ $item->id }}" data-id="{{ $item->id }}">
+                            <i class="fas fa-edit"></i>
+                        </a>                 
+                          <form action="{{ route('delete', ['user' => $item->id]) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus?')" name="delete_button">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                          </form>
                         </td>
                     </tr>
                 @endforeach
