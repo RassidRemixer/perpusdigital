@@ -123,6 +123,39 @@ class DashboardController extends Controller
         return redirect('/addbuku');
     }
 
+    public function editbuku(Request $request, $id, User $buku)
+    {
+
+        $buku = Buku::findOrFail($id);
+        $validatedData = $request->validate([
+            'judul' => 'required|string|max:250',
+            'penulis' => 'required|string|max:250',
+            'penerbit' => 'required|string|max:250',
+            'tahunterbit' => 'required|integer',
+        ]);
+
+        // dd($validatedData);
+        
+
+        // dd($user);
+        $buku->update($request->all());
+
+        // Proses selanjutnya
+
+        $request->session()->flash('success', 'Buku Berhasil Diperbarui!!');
+
+        return redirect('/addbuku');
+    }
+
+    public function hapus(Request $request, $id)
+    {
+        $buku = Buku::findOrFail($id);
+        $buku->delete();
+
+
+        return redirect('/addbuku')->with('succes', 'buku berhasil di hapus');
+    }
+
     public function delete(Request $request, $id)
     {
         $user = User::findOrFail($id);
