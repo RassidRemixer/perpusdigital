@@ -140,7 +140,7 @@
       <div class="card-body">
         <table class="table table-bordered table-striped" style="border-width: 2px; border-color: dark;">
             <thead>
-                <tr>
+                <tr style="text-align: center;">
                     <th>No</th>
                     <th>Nama</th>
                     <th>Username</th>
@@ -152,7 +152,7 @@
             </thead>
             <tbody>
                 @foreach ($data as $item)
-                    <tr>
+                    <tr style="text-align: center;">
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->namalengkap }}</td>

@@ -6,7 +6,7 @@
 
 @include('admin.buku')
 
-@include('admin.footer')
+
 
 
 
@@ -87,3 +87,5 @@
 
 </body>
 </html>
+
+@include('admin.footer')

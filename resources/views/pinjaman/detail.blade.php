@@ -4,7 +4,7 @@
   
 @include('admin.sidebar')
 
-@include('admin.admin')
+@include('pinjaman.pinjam')
 
 
 
@@ -12,7 +12,7 @@
 
 <!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">
-  <!-- Control sidebar content goes here -->
+    <!-- Control sidebar content goes here -->
 </aside>
 <!-- /.control-sidebar -->
 </div>
@@ -24,7 +24,7 @@
 <script src="{{asset('AdminLTE-3.2.0')}}/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
-  $.widget.bridge('uibutton', $.ui.button)
+    $.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('AdminLTE-3.2.0')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -56,28 +56,52 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
-  $(document).ready(function() {
-    // Ambil URL saat ini
-    var currentUrl = window.location.pathname;
-    
-    // Loop melalui setiap tautan di sidebar
-    $('.nav-link').each(function() {
-      // Ambil href dari tautan
-      var linkHref = $(this).attr('href');
-      
-      // Periksa apakah URL saat ini cocok dengan href tautan
-      if (currentUrl === linkHref) {
-        // Jika cocok, tambahkan kelas 'active' pada tautan
-        $(this).addClass('active');
+    $(document).ready(function() {
+        // Ambil URL saat ini
+        var currentUrl = window.location.pathname;
         
-        // Jika tautan memiliki submenu, tambahkan 'menu-open' pada elemen li
-        $(this).parents('li.nav-item').addClass('menu-open');
-      }
+        // Loop melalui setiap tautan di sidebar
+        $('.nav-link').each(function() {
+            // Ambil href dari tautan
+            var linkHref = $(this).attr('href');
+            
+            // Periksa apakah URL saat ini cocok dengan href tautan
+            if (currentUrl === linkHref) {
+                // Jika cocok, tambahkan kelas 'active' pada tautan
+                $(this).addClass('active');
+                
+                // Jika tautan memiliki submenu, tambahkan 'menu-open' pada elemen li
+                $(this).parents('li.nav-item').addClass('menu-open');
+            }
+        });
     });
-  });
-  
-  
+    function kembalikanBuku(id) {
+        $.ajax({
+            url: '/kembalikan-buku/' + id,
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+            },
+            success: function(response) {
+                // Handle sukses, misalnya, tampilkan pesan atau lakukan pembaruan lainnya
+                alert('Buku telah dikembalikan. Tanggal Pengembalian: ' + response.tanggal_pengembalian);
+            },
+            error: function(error) {
+                // Handle kesalahan, misalnya, tampilkan pesan error
+                console.error('Error:', error);
+            }
+        });
+    }
 </script>
+    
+    
+</script>
+
+<style>
+    .uppercase {
+        text-transform: uppercase;
+    }
+</style>
 
 </body>
 </html>
