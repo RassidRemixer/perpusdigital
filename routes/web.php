@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginRegisterController;
+use App\Http\Controllers\PeminjamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,12 +31,22 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::delete('/hapus/{buku}', [DashboardController::class, 'hapus'])->name('hapus');
     Route::get('/addbuku', [DashboardController::class, 'addbuku']);
     Route::post('/tambahbuku', [DashboardController::class, 'addbukuprosses'])->name('tambahbuku');
+
+    Route::patch('/update-status/{id}', [PeminjamController::class, 'updateStatus'])->name('update.status');
+});
+
+Route::group(['middleware' => ['role:user']], function () {
+    Route::get('/buku', [PeminjamController::class, 'index'])->name('buku.index');
+    // Route::get('/pinjaman', [PeminjamController::class, 'show'])->name('pinjaman');
+    // Route::post('/peminjaman' ,[PeminjamController::class, 'store'])->name('peminjaman.store');
+    // Route::post('/kembalikan-buku/{id}', [PeminjamanController::class, 'kembalikanBuku']);
 });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
-    // Route::get('/admincreate', [DashboardController::class, 'view']);
-    // Route::post('/addadmin', [DashboardController::class, 'store'])->name('addadmin');
+    Route::get('/pinjaman', [PeminjamController::class, 'show'])->name('pinjaman');
+    Route::post('/peminjaman' ,[PeminjamController::class, 'store'])->name('peminjaman.store');
+    Route::post('/kembalikan-buku/{id}', [PeminjamanController::class, 'kembalikanBuku']);
 });
 //Login & Register 
 Route::get('/login', [LoginRegisterController::class, 'index']);

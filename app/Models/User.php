@@ -28,6 +28,10 @@ class User extends Authenticatable
 
     ];
     
+    public function peminjaman()
+    {
+        return $this->hasMany(Peminjaman::class, 'user_id');
+    }
 
     // public function save(array $options = [])
     // {
