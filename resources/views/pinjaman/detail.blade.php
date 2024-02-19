@@ -54,6 +54,8 @@
 <script src="{{asset('AdminLTE-3.2.0')}}/dist/js/pages/dashboard.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 
 <script>
     $(document).ready(function() {
@@ -75,27 +77,103 @@
             }
         });
     });
-    function kembalikanBuku(id) {
+
+//     function kembalikanBuku(button) {
+//     // Tampilkan modal konfirmasi
+//     $('#konfirmasiModal');
+
+//     // Simpan informasi yang diperlukan untuk pembaruan setelah konfirmasi
+//     var id = $(button).data('id');
+//     $(button).data('id', id);
+// }
+
+// function konfirmasiPengembalian() {
+//     // Ambil id dari data yang disimpan sebelumnya
+//     var id = $('#konfirmasiButton').data('id');
+//     var button = $('[data-id="' + id + '"]'); // Cari tombol dengan data-id yang sesuai
+
+//     // Nonaktifkan tombol setelah diklik
+//     $(button).prop('disabled', true);
+
+//     // Ambil token CSRF dari tag meta
+//     var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+//     // Kirim request AJAX dengan menyertakan token CSRF
+//     $.ajax({
+//         type: 'PATCH',
+//         url: `/kembalikan-buku/${id}`,
+//         data: {
+//             _token: csrfToken
+//         },
+//         success: function (response) {
+//             // Handle respons jika diperlukan
+//             console.log(response.message);
+
+//             // Ubah teks dan warna tombol setelah pembaruan berhasil
+//             $(button).text('Buku sudah dikembalikan');
+//             $(button).removeClass('btn-primary').addClass('btn-success');
+//         },
+//         error: function (error) {
+//             // Handle kesalahan jika diperlukan
+//             console.error('Error updating status:', error);
+
+//             // Tambahkan detail kesalahan server ke dalam console
+//             console.log('Server error details:', error.responseText);
+
+//             // Kembalikan tombol ke kondisi normal jika ada kesalahan
+//             $(button).prop('disabled', false);
+//         }
+//     });
+
+//     // Tutup modal setelah selesai
+//     $('#konfirmasiModal').modal('hide');
+// }
+
+function kembalikanBuku(button, id) {
+    // Minta konfirmasi dari pengguna
+    if (confirm("Apakah Anda yakin ingin mengembalikan buku?")) {
+        // Nonaktifkan tombol setelah diklik
+        $(button).prop('disabled', true);
+
+        // Ambil token CSRF dari tag meta
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        // Kirim request AJAX dengan menyertakan token CSRF
         $.ajax({
-            url: '/kembalikan-buku/' + id,
-            type: 'POST',
+            type: 'PATCH',
+            url: `/kembalikan-buku/${id}`,
             data: {
-                _token: '{{ csrf_token() }}',
+                _token: csrfToken
             },
-            success: function(response) {
-                // Handle sukses, misalnya, tampilkan pesan atau lakukan pembaruan lainnya
-                alert('Buku telah dikembalikan. Tanggal Pengembalian: ' + response.tanggal_pengembalian);
+            success: function (response) {
+                // Handle respons jika diperlukan
+                console.log(response.message);
+                
+
+                // Ubah teks dan warna tombol setelah pembaruan berhasil
+                $(button).text('Buku sudah dikembalikan');
+                $(button).removeClass('btn-primary').addClass('btn-success');
+
+                location.reload();
+                
+                // Anda juga bisa menambahkan perubahan lain yang sesuai dengan kebutuhan UI Anda
             },
-            error: function(error) {
-                // Handle kesalahan, misalnya, tampilkan pesan error
-                console.error('Error:', error);
+            error: function (error) {
+                // Handle kesalahan jika diperlukan
+                console.error('Error updating status:', error);
+
+            // Tambahkan detail kesalahan server ke dalam console
+            console.log('Server error details:', error.responseText);
+
+            // Kembalikan tombol ke kondisi normal jika ada kesalahan
+            $(button).prop('disabled', false);
             }
         });
     }
+}
+
 </script>
-    
-    
-</script>
+
 
 <style>
     .uppercase {

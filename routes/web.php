@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DowloadController;
+use App\Http\Controllers\PeminjamController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginRegisterController;
-use App\Http\Controllers\PeminjamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ Route::get('/', function () {
 // Route::get('/dashboard', function () {
 //     return view('admin.master');
 // });
-Route::group(['middleware' => ['role:admin']], function () {
+Route::group(['middleware' => ['role:admin|petugas']], function () {
     Route::get('/admincreate', [DashboardController::class, 'view']);
     Route::post('/addadmin', [DashboardController::class, 'store'])->name('addadmin');
     Route::put('/editadmin/{id}', [DashboardController::class, 'edit'])->name('editadmin');        
@@ -33,6 +34,11 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::post('/tambahbuku', [DashboardController::class, 'addbukuprosses'])->name('tambahbuku');
 
     Route::patch('/update-status/{id}', [PeminjamController::class, 'updateStatus'])->name('update.status');
+    // Route::patch('/kembalikan-buku/{id}', [PeminjamController::class, 'kembalikanBuku'])->name('kembalikan.buku');
+    Route::patch('/kembalikan-buku/{id}', [PeminjamController::class, 'kembalikanBuku'])->name('kembalikan-buku');
+
+    Route::get('/peminjaman/download/pdf', [DowloadController::class, 'downloadPeminjamanPDF'])->name('peminjaman.download.pdf');
+    Route::get('/peminjaman/download/excel', [DowloadController::class, 'downloadPeminjamanExcel'])->name('peminjaman.download.excel');
 });
 
 Route::group(['middleware' => ['role:user']], function () {

@@ -182,7 +182,7 @@
           @endrole
           <li class="nav-item">
             <a href="/pinjaman" class="nav-link">
-                <i class="nav-icon fa-brands fa-readme"></i>
+                <i class="nav-icon fa-regular fa-handshake"></i>
                 <p>
                     Pinjaman
                 </p>
