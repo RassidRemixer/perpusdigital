@@ -61,21 +61,24 @@ class PeminjamController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function kembalikanBuku(Request $request, $id)
+    public function kembalikanBuku($id)
     {
-        // Lakukan validasi atau logika lain yang dibutuhkan
-        
         $peminjaman = Peminjaman::find($id);
+
         if (!$peminjaman) {
-            return response()->json(['message' => 'Peminjaman tidak ditemukan'], 404);
+            // Handle jika peminjaman tidak ditemukan
+            return redirect()->back()->with('error', 'Peminjaman tidak ditemukan');
         }
 
-        // Lakukan penanganan pengembalian buku, termasuk mengisi tanggal pengembalian
+        // Lakukan pembaruan tanggal pengembalian di sini
+        $peminjaman = Peminjaman::find($id);
         $peminjaman->tanggal_pengembalian = now();
+        $peminjaman->status_peminjam = 'success';
         $peminjaman->save();
 
-        return response()->json(['message' => 'Pengembalian buku berhasil']);
+        return response()->json(['message' => 'Buku berhasil dikembalikan']);
     }
+
 
     public function updateStatus($id, Request $request)
     {
@@ -100,11 +103,4 @@ class PeminjamController extends Controller
     }
 
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
