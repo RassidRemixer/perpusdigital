@@ -123,9 +123,12 @@
                 </tr>
             </thead>
             <tbody>
+              @php
+                  $no = 1;
+              @endphp
                 @foreach ($buku as $item)
                     <tr>
-                        <td>{{ $item->id }}</td>
+                        <td>{{ $no++ }}</td>
                         <td>{{ $item->judul }}</td>
                         <td>{{ $item->penulis }}</td>
                         <td>{{ $item->penerbit }}</td>
