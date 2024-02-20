@@ -14,7 +14,7 @@ class CreatePeminjamanTable extends Migration
             $table->foreignId('buku_id')->constrained('bukus');
             $table->date('tanggal_peminjaman');
             $table->date('tanggal_pengembalian')->nullable();
-            $table->string('status_peminjam', 50)->nullable(); // Tambahkan kolom status_peminjam
+            $table->enum('status_peminjam', ['pending', 'success'])->default('pending');
             $table->timestamps();
         });
     }

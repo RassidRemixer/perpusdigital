@@ -146,9 +146,7 @@
                 Petugas
               </p>
             </a>
-          </li>
-          @else
-          @endrole
+          </li>          
           <li class="nav-header">TABLE</li>
           <li class="nav-item">
             <a href="/addbuku" class="nav-link">
@@ -158,7 +156,39 @@
               </p>
             </a>
           </li>
+          @endrole
+          @role('petugas')
+          <li class="nav-header">TABLE</li>
           <li class="nav-item">
+            <a href="/addbuku" class="nav-link">
+              <i class="nav-icon fa-solid fa-book"></i></i>
+              <p>
+                Buku
+              </p>
+            </a>
+          </li>
+          @endrole
+          @role('user')
+          <li class="nav-header">TABLE</li>
+          <li class="nav-item">
+            <a href="/buku" class="nav-link">
+              <i class="nav-icon fa-solid fa-book"></i></i>
+              <p>
+                Buku
+              </p>
+            </a>
+          </li>
+          
+          @endrole
+          <li class="nav-item">
+            <a href="/pinjaman" class="nav-link">
+                <i class="nav-icon fa-regular fa-handshake"></i>
+                <p>
+                    Pinjaman
+                </p>
+            </a>
+        </li>
+          {{-- <li class="nav-item">
             <a href="/dashboard" class="nav-link">
               <i class="nav-icon fa-solid fa-list"></i>
               <p>
@@ -173,7 +203,7 @@
                 Ulasan
               </p>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

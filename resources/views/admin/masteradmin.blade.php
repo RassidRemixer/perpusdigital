@@ -6,16 +6,15 @@
 
 @include('admin.admin')
 
-@include('admin.footer')
 
 
 
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+  <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
@@ -60,25 +59,27 @@
   $(document).ready(function() {
     // Ambil URL saat ini
     var currentUrl = window.location.pathname;
-
+    
     // Loop melalui setiap tautan di sidebar
     $('.nav-link').each(function() {
       // Ambil href dari tautan
       var linkHref = $(this).attr('href');
-
+      
       // Periksa apakah URL saat ini cocok dengan href tautan
       if (currentUrl === linkHref) {
         // Jika cocok, tambahkan kelas 'active' pada tautan
         $(this).addClass('active');
-
+        
         // Jika tautan memiliki submenu, tambahkan 'menu-open' pada elemen li
         $(this).parents('li.nav-item').addClass('menu-open');
       }
     });
   });
-
-
+  
+  
 </script>
 
 </body>
 </html>
+
+@include('admin.footer')

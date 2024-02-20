@@ -99,6 +99,7 @@ class DashboardController extends Controller
 
     public function addbuku()
     {
+        
         $buku = Buku::all();
         return view('admin.masterbuku', ['buku' => $buku]);
     }
