@@ -39,6 +39,12 @@ Route::group(['middleware' => ['role:admin|petugas']], function () {
 
     Route::get('/peminjaman/download/pdf', [DowloadController::class, 'downloadPeminjamanPDF'])->name('peminjaman.download.pdf');
     Route::get('/peminjaman/download/excel', [DowloadController::class, 'downloadPeminjamanExcel'])->name('peminjaman.download.excel');
+
+    Route::get('/buku/download/pdf', [DowloadController::class, 'downloadBukuPDF'])->name('buku.download.pdf');
+    Route::get('/buku/download/excel', [DowloadController::class, 'downloadBukuExcel'])->name('buku.download.excel');
+
+    Route::get('/petugas/download/pdf', [DowloadController::class, 'downloadPetugasPDF'])->name('petugas.download.pdf');
+    Route::get('/petugas/download/excel', [DowloadController::class, 'downloadPetugasExcel'])->name('petugas.download.excel');
 });
 
 Route::group(['middleware' => ['role:user']], function () {

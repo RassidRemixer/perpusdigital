@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Buku;
 use App\Models\User;
 use App\Models\Dashboard;
+use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,7 +20,8 @@ class DashboardController extends Controller
         $user = User::find(auth()->id());
         $countPeminjam = User::where('role', 'peminjam')->count();
         $countBuku = Buku::all()->count();
-        return view('admin.master', ['user' => $user, 'countPeminjam' => $countPeminjam, 'countBuku' => $countBuku]);
+        $countPeminjaman = Peminjaman::all()->count();
+        return view('admin.master', ['user' => $user, 'countPeminjam' => $countPeminjam, 'countBuku' => $countBuku, 'countPeminjaman' => $countPeminjaman]);
     }
 
     /**
