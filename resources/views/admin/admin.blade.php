@@ -135,6 +135,32 @@
       <div class="card-header text-right mb-3">
         <h3 class="card-title">Data Petugas PerpusTakaan</h3>
         <a href="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-addadmin"><i class="fas fa-plus"></i> Tambah Petugas</a>
+        @role('admin')
+              <div class="float-right">
+                  <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="downloadDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Download
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="downloadDropdown">
+                          <a class="dropdown-item" href="{{ route('petugas.download.pdf') }}"><i class="fa-regular fa-file-pdf"></i></a>
+                          <a class="dropdown-item" href="{{ route('petugas.download.excel') }}"><i class="fa-regular fa-file-excel"></i>l</a>
+                      </div>
+                  </div>
+              </div>
+              @endrole
+              @role('petugas')
+              <div class="float-right">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="downloadDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Download
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="downloadDropdown">
+                        <a class="dropdown-item" href="{{ route('petugas.download.pdf') }}"><i class="fa-regular fa-file-pdf"></i></a>
+                        <a class="dropdown-item" href="{{ route('petugas.download.excel') }}"><i class="fa-regular fa-file-excel"></i>l</a>
+                    </div>
+                </div>
+            </div>
+              @endrole
       </div>
 
       <div class="card-body">

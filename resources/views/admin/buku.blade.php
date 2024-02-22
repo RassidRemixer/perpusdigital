@@ -177,6 +177,32 @@
         @role('user')
         {{-- <a href="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-addadmin"><i class="fas fa-plus"></i> Tambah Buku</a> --}}
         @endrole
+        @role('admin')
+        <div class="float-right">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="downloadDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Download
+                </button>
+                <div class="dropdown-menu" aria-labelledby="downloadDropdown">
+                    <a class="dropdown-item" href="{{ route('buku.download.pdf') }}"><i class="fa-regular fa-file-pdf"></i></a>
+                    <a class="dropdown-item" href="{{ route('buku.download.excel') }}"><i class="fa-regular fa-file-excel"></i>l</a>
+                </div>
+            </div>
+        </div>
+        @endrole
+        @role('petugas')
+        <div class="float-right">
+          <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="downloadDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Download
+              </button>
+              <div class="dropdown-menu" aria-labelledby="downloadDropdown">
+                  <a class="dropdown-item" href="{{ route('buku.download.pdf') }}"><i class="fa-regular fa-file-pdf"></i></a>
+                  <a class="dropdown-item" href="{{ route('buku.download.excel') }}"><i class="fa-regular fa-file-excel"></i>l</a>
+              </div>
+          </div>
+        </div>
+        @endrole
       </div>
       <div class="card-body">
         <table class="table table-bordered table-striped" style="border-width: 2px; border-color: dark;">
@@ -195,7 +221,7 @@
                   $no = 1;
               @endphp
                 @foreach ($buku as $item)
-                    <tr>
+                    <tr style="text-align: center;">
                         <td>{{ $no++ }}</td>
                         <td>{{ $item->judul }}</td>
                         <td>{{ $item->penulis }}</td>
