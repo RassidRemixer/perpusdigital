@@ -15,6 +15,7 @@ class CreatePeminjamanTable extends Migration
             $table->date('tanggal_peminjaman');
             $table->date('tanggal_pengembalian')->nullable();
             $table->enum('status_peminjam', ['pending', 'success'])->default('pending');
+            $table->integer('jumlahPinjaman');
             $table->timestamps();
         });
     }
@@ -24,6 +25,7 @@ class CreatePeminjamanTable extends Migration
         Schema::dropIfExists('peminjaman');
     }
 }
+
 
 
 

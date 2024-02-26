@@ -33,6 +33,7 @@ class PeminjamanExport extends DefaultValueBinder implements FromCollection, Wit
                 'Peminjam' => $peminjam ? $peminjam->name : 'Nama tidak ditemukan',
                 'Judul Buku' => $book ? $book->judul : 'Judul tidak ditemukan',
                 'Penerbit' => $book ? $book->penerbit : 'Penerbit tidak ditemukan',
+                'Buku Di Pinjam' => $item->jumlahPinjaman,
                 'Tanggal Peminjaman' => $item->tanggal_peminjaman,
                 'Tanggal Pengembalian' => $item->tanggal_pengembalian,
                 'Status Peminjam' => $item->status_peminjam,
@@ -42,7 +43,7 @@ class PeminjamanExport extends DefaultValueBinder implements FromCollection, Wit
 
     public function headings(): array
     {
-        return ['No', 'Nama Pengguna', 'Judul Buku', 'Penerbit', 'Tanggal Peminjaman', 'Tanggal Pengembalian', 'Status Peminjam'];
+        return ['No', 'Nama Pengguna', 'Judul Buku', 'Penerbit', 'Buku Di Pinjam', 'Tanggal Peminjaman', 'Tanggal Pengembalian', 'Status Peminjam'];
     }
 
     public function registerEvents(): array
@@ -68,7 +69,7 @@ class PeminjamanExport extends DefaultValueBinder implements FromCollection, Wit
     public function columnFormats(): array
     {
         return [
-            'E' => 'yyyy-mm-dd', // Format kolom tanggal pinjam
+            'E' => 'General', // Format kolom tanggal pinjam
             'F' => 'yyyy-mm-dd', // Format kolom tanggal pengembalian
         ];
     }

@@ -58,6 +58,7 @@
                 <th>Nama</th>
                 <th>Judul Buku</th>
                 <th>Penerbit</th>
+                <th>Buku Di Pinjam</th>
                 <th>Tanggal Pinjam</th>
                 <th>Tanggal Pengembalian</th>
                 <th>Status</th>
@@ -70,6 +71,7 @@
                     <td>{{ $peminjaman->user->name }}</td>
                     <td>{{ $peminjaman->buku->judul }}</td>
                     <td>{{ $peminjaman->buku->penerbit }}</td>
+                    <td>{{ $peminjaman->jumlahPinjaman }}</td>
                     <td>{{ $peminjaman->tanggal_peminjaman }}</td>
                     <td>{{ $peminjaman->tanggal_pengembalian ?? '-----' }}</td>
                     <td style="color: {{ $peminjaman->status_peminjam === 'pending' ? 'red' : ($peminjaman->status_peminjam === 'success' ? 'green' : 'blue') }}">

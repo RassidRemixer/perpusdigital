@@ -87,6 +87,13 @@
   //       }
 </script>
 
+{{-- <script>
+  @if(isset($buku[0]))
+      var stok = parseInt("{{ $buku[0]->stok }}");
+      document.getElementById('stok').setAttribute('max', stok);
+  @endif
+</script> --}}
+
 </body>
 </html>
 

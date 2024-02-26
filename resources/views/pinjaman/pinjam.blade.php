@@ -68,6 +68,7 @@
                                 <th>Nama</th>
                                 <th>Judul Buku</th>
                                 <th>Penerbit</th>
+                                <th>Buku Di Pinjam</th>
                                 <th>Tanggal Pinjam</th>
                                 <th>Tanggal Pengembalian</th>
                                 <th>Status</th>
@@ -86,6 +87,7 @@
                                     <td>{{ $peminjaman->user->name }}</td>
                                     <td>{{ $peminjaman->buku->judul }}</td>
                                     <td>{{ $peminjaman->buku->penerbit }}</td>
+                                    <td>{{ $peminjaman->jumlahPinjaman }}</td>
                                     <td >{{ $peminjaman->tanggal_peminjaman }}</td>
                                     <td style="text-align: center;">
                                         @empty($peminjaman->tanggal_pengembalian)
@@ -119,7 +121,6 @@
                                             <span class="text-warning">Belum di-ACC</span>
                                         @elseif($peminjaman->status_peminjam === 'success' && !$peminjaman->tanggal_pengembalian)
                                         <button onclick="kembalikanBuku(this, {{ $peminjaman->id }})" class="btn btn-primary btn-sm" data-id="{{ $peminjaman->id }}">Kembalikan</button>
-
                                         @else
                                             <span class="text-success">Buku sudah dikembalikan</span>
                                         @endif
@@ -165,24 +166,3 @@
       </section>
       <!-- /.content -->
     </div>
-
-
-<!-- Modal Konfirmasi -->
-{{-- <div id="konfirmasiModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-      <!-- Konten Modal -->
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Konfirmasi Pengembalian Buku</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <p>Apakah Anda yakin ingin mengembalikan buku?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-primary" onclick="konfirmasiPengembalian()">Ya</button>
-        </div>
-      </div>
-    </div>
-  </div> --}}

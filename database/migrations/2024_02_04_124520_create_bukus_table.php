@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('penulis');
             $table->string('penerbit');
             $table->integer('tahunterbit');
+            $table->unsignedInteger('stok'); // Menggunakan unsignedInteger
             $table->timestamps();
         });
     }

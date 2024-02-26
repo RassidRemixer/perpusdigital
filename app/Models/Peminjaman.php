@@ -1,19 +1,11 @@
 <?php
 
-// namespace App\Models;
-
-// use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Illuminate\Database\Eloquent\Model;
-
-// class Peminjam extends Model
-// {
-//     use HasFactory;
-// }
-
 
 namespace App\Models;
 
 
+use App\Models\Buku;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -27,6 +19,7 @@ class Peminjaman extends Model
         'tanggal_peminjaman',
         'tanggal_pengembalian',
         'status_peminjam',
+        'jumlahPinjaman',
     ];
 
     // Relasi dengan tabel users (pengguna)
