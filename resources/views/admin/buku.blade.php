@@ -27,44 +27,46 @@
       <!-- Modal -->
       <div class="modal fade" id="modal-addadmin">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title font-weight-bold">Tambah Buku</h4>
-            </div>
-            <div class="modal-body">
-              <form action="{{ route('tambahbuku') }}" method="POST">
-                @csrf
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="name">Judul</label>
-                        <input type="text" class="form-control" id="judul" name="judul" placeholder="Masukkan Judul Buku" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="namalengkap">Penulis</label>
-                        <input type="text" class="form-control" id="penulis" name="penulis" placeholder="Masukkan Penulis Buku" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Penerbit</label>
-                        <input type="text" class="form-control" id="penerbit" name="penerbit" placeholder="Masukkan Penulis Buku" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="alamat">Tahun Terbit</label>
-                        <input type="number" class="form-control" id="tahunterbit" name="tahunterbit" placeholder="2006" required>
-                    </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title font-weight-bold">Tambah Buku</h4>
                 </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default font-weight-bold" data-dismiss="modal">BATAL</button>
-                    <button type="submit" class="btn btn-primary font-weight-bold">SIMPAN</button>
+                <div class="modal-body">
+                    <form action="{{ route('tambahbuku') }}" method="POST">
+                        @csrf
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="judul">Judul</label>
+                                <input type="text" class="form-control" id="judul" name="judul" placeholder="Masukkan Judul Buku" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="penulis">Penulis</label>
+                                <input type="text" class="form-control" id="penulis" name="penulis" placeholder="Masukkan Penulis Buku" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="penerbit">Penerbit</label>
+                                <input type="text" class="form-control" id="penerbit" name="penerbit" placeholder="Masukkan Penerbit Buku" required>
+                            <div class="form-group">
+                                <label for="stok">Stok</label>
+                                <input type="number" class="form-control" id="stok" name="stok" placeholder="Masukkan Stok Buku" min="0" required>
+                            </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tahunterbit">Tahun Terbit</label>
+                                <input type="number" class="form-control" id="tahunterbit" name="tahunterbit" placeholder="2006" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default font-weight-bold" data-dismiss="modal">BATAL</button>
+                            <button type="submit" class="btn btn-primary font-weight-bold">SIMPAN</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
-            
-            
             </div>
-          </div>
-          <!-- /.modal-content -->
+            <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-      </div>
+    </div>
       <!-- /.modal -->
       <section>
       @foreach ($buku as $item)
@@ -84,19 +86,23 @@
                           <div class="card-body">
                               <div class="form-group">
                                   <label for="name">Judul</label>
-                                  <input type="text" class="form-control" id="judul" name="judul" value="{{ $item->judul }}" placeholder="Masukkan Nama" autofocus>
+                                  <input type="text" class="form-control" id="judul" name="judul" value="{{ $item->judul }}"  autofocus>
                               </div>
                               <div class="form-group">
                                   <label for="namalengkap">Penulis</label>
-                                  <input type="text" class="form-control" id="penulis" name="penulis" value="{{ $item->penulis }}" placeholder="Masukkan Nama Lengkap" required>
+                                  <input type="text" class="form-control" id="penulis" name="penulis" value="{{ $item->penulis }}"  required>
                               </div>
                               <div class="form-group">
                                   <label for="email">Penerbit</label>
-                                  <input type="text" class="form-control" id="penerbit" name="penerbit" value="{{ $item->penerbit }}" placeholder="contoh@gmail.com" required>
+                                  <input type="text" class="form-control" id="penerbit" name="penerbit" value="{{ $item->penerbit }}"  required>
+                              </div>
+                              <div class="form-group">
+                                  <label for="stok">Stok</label>
+                                  <input type="number" class="form-control" id="stok" name="stok" value="{{ $item->stok }}"  required>
                               </div>
                               <div class="form-group">
                                   <label for="alamat">Tahun Terbit</label>
-                                  <input type="number" class="form-control" id="tahunterbit" name="tahunterbit" value="{{ $item->tahunterbit }}" placeholder="Masukkan Alamat" required>
+                                  <input type="number" class="form-control" id="tahunterbit" name="tahunterbit" value="{{ $item->tahunterbit }}" required>
                               </div>
                           </div>
                           <div class="modal-footer justify-content-between">
@@ -119,7 +125,7 @@
                     <h4 class="modal-title font-weight-bold">Detail Buku</h4>
                 </div>
 
-                <!-- Formulir Detail -->
+                <!-- Formulir Detail Pinjam -->
                 <form action="{{ route('peminjaman.store') }}" method="POST">
                     @csrf
                     <div class="modal-body">
@@ -137,6 +143,14 @@
                               <label for="email">Penerbit</label>
                               <input type="text" class="form-control" id="penerbit" name="penerbit" value="{{ $item->penerbit }}" readonly>
                           </div>
+                          <div class="form-group">
+                            <label for="stok">Jumlah Pinjam</label>
+                            <input type="number" class="form-control" id="stok" name="stok" value="1" min="1" max="{{ $item->stok }}" required autofocus>
+                        </div>
+                        {{-- <div class="form-group">
+                            <label for="stok">Jumlah Pinjam</label>
+                            <input type="number" class="form-control" id="stok" name="stok" placeholder="Masukkan Jumlah Pinjam" required autofocus>
+                        </div> --}}
                           <div class="form-group">
                               <label for="alamat">Tahun Terbit</label>
                               <input type="number" class="form-control" id="tahunterbit" name="tahunterbit" value="{{ $item->tahunterbit }}" readonly>
@@ -160,7 +174,7 @@
             </div>
         </div>
     </div>
-@endforeach
+    @endforeach
 
 
 
@@ -212,6 +226,7 @@
                     <th>Judul</th>
                     <th>Penulis</th>
                     <th>Penerbit</th>
+                    <th>Stok</th>
                     <th>Tahun terbit</th>
                     <th>Pilihan</th>
                 </tr>
@@ -226,6 +241,7 @@
                         <td>{{ $item->judul }}</td>
                         <td>{{ $item->penulis }}</td>
                         <td>{{ $item->penerbit }}</td>
+                        <td>{{ $item->stok }}</td>
                         <td>{{ $item->tahunterbit }}</td>
                         @role('admin')
                         <td>
@@ -275,3 +291,5 @@
   </section>
   </div>
   <!-- /.content-wrapper -->
+
+

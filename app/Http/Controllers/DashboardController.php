@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Dashboard;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
@@ -97,7 +98,6 @@ class DashboardController extends Controller
 
         return redirect('/admincreate');
     }
-    
 
     public function addbuku()
     {
@@ -112,15 +112,17 @@ class DashboardController extends Controller
             'penulis' => 'required|string|max:250',
             'penerbit' => 'required|string|max:250',
             'tahunterbit' => 'required|integer',
+            'stok' => 'required|integer|min:0', // Validasi untuk stok
         ]);
-
+    
         Buku::create([
             'judul' => $validatedData['judul'],
             'penulis' => $validatedData['penulis'],
             'penerbit' => $validatedData['penerbit'],
             'tahunterbit' => $validatedData['tahunterbit'],
+            'stok' => $validatedData['stok'], // Menambahkan stok ke dalam data yang disimpan
         ]);
-        
+    
         $request->session()->flash('success', 'Data Berhasil Di Tambahkan');
         
         return redirect('/addbuku');
@@ -128,7 +130,6 @@ class DashboardController extends Controller
 
     public function editbuku(Request $request, $id, User $buku)
     {
-
         $buku = Buku::findOrFail($id);
         $validatedData = $request->validate([
             'judul' => 'required|string|max:250',
@@ -136,28 +137,42 @@ class DashboardController extends Controller
             'penerbit' => 'required|string|max:250',
             'tahunterbit' => 'required|integer',
         ]);
-
         // dd($validatedData);
         
-
         // dd($user);
         $buku->update($request->all());
-
         // Proses selanjutnya
-
         $request->session()->flash('success', 'Buku Berhasil Diperbarui!!');
-
         return redirect('/addbuku');
     }
 
+    // public function hapus(Request $request, $id)
+    // {
+    //     $buku = Buku::findOrFail($id);
+    //     $buku->delete();
+
+
+    //     return redirect('/addbuku')->with('succes', 'buku berhasil di hapus');
+    // }
+
     public function hapus(Request $request, $id)
     {
-        $buku = Buku::findOrFail($id);
-        $buku->delete();
-
-
-        return redirect('/addbuku')->with('succes', 'buku berhasil di hapus');
+        return DB::transaction(function () use ($id) {
+            $buku = Buku::findOrFail($id);
+    
+            // Periksa apakah relasi peminjamans sudah dimuat
+            if ($buku->peminjaman()->count() > 0) {
+                // Hapus peminjaman yang terkait
+                $buku->peminjaman()->delete();
+            }
+    
+            // Hapus buku
+            $buku->delete();
+    
+            return redirect('/addbuku')->with('success', 'Buku dan peminjamannya berhasil dihapus');
+        });
     }
+
 
     public function delete(Request $request, $id)
     {
