@@ -74,7 +74,6 @@
     <div class="report-container">
         <table >
             <tr>
-                {{-- <td class="logo"><img src="{{ asset('logo/smkn4.png') }}" alt="Logo SMKN 4"></td> --}}
                 <td class="logo">
                     <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('logo/smkn4.png'))) }}" alt="Logo SMKN 4">
                 </td>                

@@ -24,7 +24,7 @@ class PeminjamController extends Controller
      */
     public function show()
     {
-        $peminjamans = Peminjaman::with('user', 'buku')->get();
+        $peminjamans = Peminjaman::with('user', 'buku')->paginate(10);
         return view('pinjaman.detail', compact('peminjamans'));
     }
 
@@ -62,11 +62,9 @@ class PeminjamController extends Controller
             // Redirect atau kembalikan ke halaman yang sesuai
             return redirect()->route('pinjaman', ['id' => Peminjaman::latest()->first()->id])->with('success', 'Peminjaman berhasil disimpan.');
         }
-
     public function kembalikanBuku($id)
     {
         $peminjaman = Peminjaman::find($id);
-
         if (!$peminjaman) {
             // Handle jika peminjaman tidak ditemukan
             return redirect()->back()->with('error', 'Peminjaman tidak ditemukan');
