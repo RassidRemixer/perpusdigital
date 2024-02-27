@@ -20,9 +20,8 @@ use App\Http\Controllers\LoginRegisterController;
 Route::get('/', function () {
     return view('logis.login');
 });
-// Route::get('/dashboard', function () {
-//     return view('admin.master');
-// });
+// Route::get('/', [DashboardController::class, 'laporan']);
+
 Route::group(['middleware' => ['role:admin|petugas']], function () {
     Route::get('/admincreate', [DashboardController::class, 'view']);
     Route::post('/addadmin', [DashboardController::class, 'store'])->name('addadmin');

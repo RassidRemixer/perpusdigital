@@ -1,7 +1,75 @@
+{{-- <!DOCTYPE html>
+<head>
+    <title>Laporan Buku</title>
+    <style>
+        table tr td{
+            font-size: 13;
+        }
+        table tr .text{
+            text-align: right;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <table border="2">
+            <tr>
+                <td><img src="{{ asset('logo/smkn4.png') }}" width="90" height="90"></td>
+                <td>
+                    <center>
+                        <font size="4">LAPORAN BUKU</font>
+                        <font size="5">SMKN 4 PAYAKUMBUH</font>
+                        <font size="2">Lembaga Perpustakaan Smkn 4 Payakumbuh</font>
+                        <font size="2">Jl. Koto Kociak, Kel.Padang Sikabu, Kec. Lamposi Tigo Nagori, Padang Sikabu, Kec. Lamposi Tigo Nagori, Kota Payakumbuh, Sumatera Barat 26219
+                        </font>
+                    </center>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><hr></td>
+            </tr>
+        </table>
+        <table border="1" width="1423">
+            <tr >
+                <td class="text">Payakumbuh, 16-02-2023</td>
+            </tr>
+        </table>
+        <br>
+        <table border="1" width="1423">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Judul</th>
+                    <th>Penulis</th>
+                    <th>Penerbit</th>
+                    <th>Tahun Terbit</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php
+                    $no = 1;
+                @endphp
+                @foreach($buku as $peminjaman)
+                    <tr style="text-align: center;">
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $peminjaman->judul }}</td>
+                        <td>{{ $peminjaman->penulis }}</td>
+                        <td>{{ $peminjaman->penerbit }}</td>
+                        <td>{{ $peminjaman->tahunterbit }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </center>
+</body>
+</html> --}}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>LAPORAN BUKU</title>
+    <title>Laporan Buku</title>
     <style>
         body {
             /* font-family: 'Calibri', Arial, sans-serif;  */
@@ -74,7 +142,6 @@
     <div class="report-container">
         <table >
             <tr>
-                {{-- <td class="logo"><img src="{{ asset('logo/smkn4.png') }}" alt="Logo SMKN 4"></td> --}}
                 <td class="logo">
                     <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('logo/smkn4.png'))) }}" alt="Logo SMKN 4">
                 </td>                
@@ -88,10 +155,10 @@
                 </td>
                 <td class="logo">
                     <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('logo/smkn4.png'))) }}" alt="Logo SMKN 4">
-                </td>                
+                </td>
             </tr>
             <tr style="margin-top: -10px" width="100%">
-                <td colspan="3"><hr><hr></td>
+                <td colspan="4"><hr><hr></td>
             </tr>
         </table>
         {{-- <table width="100%">
@@ -116,7 +183,7 @@
                 @php
                     $no = 1;
                 @endphp
-                @foreach($data as $peminjaman)
+                @foreach($buku as $peminjaman)
                     <tr style="text-align: center;">
                         <td>{{ $no++ }}</td>
                         <td>{{ $peminjaman->judul }}</td>

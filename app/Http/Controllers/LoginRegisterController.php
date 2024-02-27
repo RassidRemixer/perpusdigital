@@ -75,22 +75,42 @@ class LoginRegisterController extends Controller
     /**
      * Display the specified resource.
      */
-    public function authenticate( Request $request)
+    // public function authenticate(Request $request)
+    // {
+    //     $login = $request->validate([
+    //         'email' => 'required|email:dns',
+    //         'password' => 'required',
+    //         'g-recaptcha-response' => 'required|captcha',
+    //     ]);
+    //     if (Auth::attempt($login)) {
+    //         $request->session()->regenerate();
+    //         return redirect()->intended('/dashboard')->with('success', 'Login berhasil');
+    //     }
+
+    //     return back()->with('failed', 'Gagal Login');
+    // }
+
+    public function authenticate(Request $request)
     {
-        $login = $request->validate([
+        $request->validate([
             'email' => 'required|email:dns',
-            'password' => 'required'
+            'password' => 'required',
+            'g-recaptcha-response' => 'required|captcha',
         ]);
+
+        $login = [
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+        ];
 
         if (Auth::attempt($login)) {
             $request->session()->regenerate();
-
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/dashboard')->with('success', 'Login berhasil');
         }
 
         return back()->with('failed', 'Gagal Login');
-
     }
+
 
     public function logout(Request $request)
     {

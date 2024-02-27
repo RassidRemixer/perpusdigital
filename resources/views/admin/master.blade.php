@@ -55,6 +55,7 @@
 <script src="{{asset('AdminLTE-3.2.0')}}/dist/js/pages/dashboard.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
   $(document).ready(function() {
@@ -77,13 +78,12 @@
     });
   });
 
-  // Hanya jalankan auto-refresh saat dalam mode pengembangan
-  // if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-  //           setInterval(function() {
-  //               location.reload();
-  //           }, 5000); // Auto-refresh setiap 5 detik
-  //       }
 </script>
 
+@if ($message = Session::get('success'))
+  <script>
+    Swal.fire(' {{$message}} ');
+  </script>
+@endif
 </body>
 </html>

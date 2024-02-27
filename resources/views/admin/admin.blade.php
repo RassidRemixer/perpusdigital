@@ -47,16 +47,16 @@
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required autofocus>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group" readonly>
                         <label for="role">Role</label>
                         <select class="form-control" id="role" name="role">
                             <option value="admin">Admin</option>
                             <option value="petugas" selected>Petugas</option>
                             <option value="peminjam">Peminjam</option>
                         </select>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default font-weight-bold" data-dismiss="modal">BATAL</button>
@@ -191,16 +191,18 @@
                         {{-- <td>{{ $item->password }}</td> --}}
                         <td>{{ $item->alamat }}</td>
                         <td>
-                          <a href="#" class="btn btn-warning btn-sm editBtn" data-toggle="modal" data-target="#modal-editadmin-{{ $item->id }}" data-id="{{ $item->id }}">
-                            <i class="fas fa-edit"></i>
-                        </a>                 
-                          <form action="{{ route('delete', ['user' => $item->id]) }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus?')" name="delete_button">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                          </form>
+                            <div class="btn-group btn-group-sm">
+                                <a href="#" class="btn btn-warning editBtn" data-toggle="modal" data-target="#modal-editadmin-{{ $item->id }}" data-id="{{ $item->id }}">
+                                    <i class="fas fa-edit"></i>
+                                </a>                 
+                                <form action="{{ route('delete', ['user' => $item->id]) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="hapusBuku(event, {{ $item->id }})" name="delete_button">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
