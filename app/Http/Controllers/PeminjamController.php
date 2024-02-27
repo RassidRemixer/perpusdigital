@@ -15,7 +15,7 @@ class PeminjamController extends Controller
      */
     public function index()
     {
-        $buku = Buku::all();
+        $buku = Buku::paginate(5);
         return view('admin.masterbuku', ['buku' => $buku]);
     }
 
@@ -29,70 +29,66 @@ class PeminjamController extends Controller
     }
 
     public function store(Request $request)
-{
-    // Ambil 'user_id' dari pengguna yang sudah terotentikasi
-    $user_id = auth()->id();
-    $buku_id = $request->input('buku_id');
-    
-    $request->merge(['user_id' => $user_id, 'buku_id' => $buku_id]);
-
-    // Pastikan hanya atribut yang diizinkan yang diambil dari request
-    $data = $request->only(['user_id', 'buku_id', 'tanggal_peminjaman', 'tanggal_pengembalian', 'status_peminjam']);
-
-    // Setel tanggal peminjaman dengan created_at
-    $data['tanggal_peminjaman'] = $request->input('tanggal_peminjaman');
-
-    // Tambahkan data jumlahPinjaman dari input form dengan nama 'stok'
-    $data['jumlahPinjaman'] = $request->input('stok');
-
-    try {
-        // Kurangi stok buku
-        $buku = Buku::findOrFail($buku_id);
-        
-        if ($buku->stok >= $data['jumlahPinjaman'] && $data['jumlahPinjaman'] > 0) {
-            $buku->stok -= $data['jumlahPinjaman'];
-            $buku->save();
+        {
+            // Ambil 'user_id' dari pengguna yang sudah terotentikasi
+            $user_id = auth()->id();
+            $buku_id = $request->input('buku_id');
             
-            // Simpan data peminjaman ke dalam tabel peminjaman
-            Peminjaman::create($data);
-        } else {
-            return redirect()->back()->with('error', 'Stok buku tidak mencukupi atau jumlah peminjaman tidak valid.');
+            $request->merge(['user_id' => $user_id, 'buku_id' => $buku_id]);
+            // Pastikan hanya atribut yang diizinkan yang diambil dari request
+            $data = $request->only(['user_id', 'buku_id', 'tanggal_peminjaman', 'tanggal_pengembalian', 'status_peminjam']);
+            // Setel tanggal peminjaman dengan created_at
+            $data['tanggal_peminjaman'] = $request->input('tanggal_peminjaman');
+            // Tambahkan data jumlahPinjaman dari input form dengan nama 'stok'
+            $data['jumlahPinjaman'] = $request->input('stok');
+            try {
+                // Kurangi stok buku
+                $buku = Buku::findOrFail($buku_id);
+                
+                if ($buku->stok >= $data['jumlahPinjaman'] && $data['jumlahPinjaman'] > 0) {
+                    $buku->stok -= $data['jumlahPinjaman'];
+                    $buku->save();
+                    
+                    // Simpan data peminjaman ke dalam tabel peminjaman
+                    Peminjaman::create($data);
+                } else {
+                    return redirect()->back()->with('error', 'Stok buku tidak mencukupi atau jumlah peminjaman tidak valid.');
+                }
+            } catch (\Exception $e) {
+                // Tanggapi jika terjadi kesalahan
+                return redirect()->back()->with('error', 'Gagal menyimpan peminjaman. Silakan coba lagi.');
+            }
+            
+            // Redirect atau kembalikan ke halaman yang sesuai
+            return redirect()->route('pinjaman', ['id' => Peminjaman::latest()->first()->id])->with('success', 'Peminjaman berhasil disimpan.');
         }
-    } catch (\Exception $e) {
-        // Tanggapi jika terjadi kesalahan
-        return redirect()->back()->with('error', 'Gagal menyimpan peminjaman. Silakan coba lagi.');
-    }
-    
-    // Redirect atau kembalikan ke halaman yang sesuai
-    return redirect()->route('pinjaman', ['id' => Peminjaman::latest()->first()->id])->with('success', 'Peminjaman berhasil disimpan.');
-}
 
     public function kembalikanBuku($id)
-{
-    $peminjaman = Peminjaman::find($id);
+    {
+        $peminjaman = Peminjaman::find($id);
 
-    if (!$peminjaman) {
-        // Handle jika peminjaman tidak ditemukan
-        return redirect()->back()->with('error', 'Peminjaman tidak ditemukan');
+        if (!$peminjaman) {
+            // Handle jika peminjaman tidak ditemukan
+            return redirect()->back()->with('error', 'Peminjaman tidak ditemukan');
+        }
+
+        // Pastikan status_peminjam adalah 'success' dan tanggal_pengembalian masih kosong
+        if ($peminjaman->status_peminjam === 'success' && !$peminjaman->tanggal_pengembalian) {
+            // Lakukan pembaruan tanggal pengembalian di sini
+            $peminjaman->tanggal_pengembalian = now();
+            $peminjaman->status_peminjam = 'success';
+            $peminjaman->save();
+
+            // Tambahkan stok buku
+            $buku = Buku::findOrFail($peminjaman->buku_id);
+            $buku->stok += 1;
+            $buku->save();
+
+            return response()->json(['message' => 'Buku berhasil dikembalikan']);
+        } else {
+            return response()->json(['error' => 'Tidak dapat mengembalikan buku. Periksa status peminjaman.']);
+        }
     }
-
-    // Pastikan status_peminjam adalah 'success' dan tanggal_pengembalian masih kosong
-    if ($peminjaman->status_peminjam === 'success' && !$peminjaman->tanggal_pengembalian) {
-        // Lakukan pembaruan tanggal pengembalian di sini
-        $peminjaman->tanggal_pengembalian = now();
-        $peminjaman->status_peminjam = 'success';
-        $peminjaman->save();
-
-        // Tambahkan stok buku
-        $buku = Buku::findOrFail($peminjaman->buku_id);
-        $buku->stok += 1;
-        $buku->save();
-
-        return response()->json(['message' => 'Buku berhasil dikembalikan']);
-    } else {
-        return response()->json(['error' => 'Tidak dapat mengembalikan buku. Periksa status peminjaman.']);
-    }
-}
 
 
     public function updateStatus($id, Request $request)

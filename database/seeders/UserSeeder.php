@@ -25,8 +25,8 @@ class UserSeeder extends Seeder
         $admin->name = "ADMIN";
         $admin->password = bcrypt("password");
         $admin->email = "admin@gmail.com";
-        $admin->namalengkap = "BLABLA";
-        $admin->alamat = "INDONESIA";
+        $admin->namalengkap = "Admin Smk 4 Payakumbuh";
+        $admin->alamat = "Smkn 4 Payakumbuh";
         $admin->role = "admin";
         $admin->save();
         $admin->assignRole('admin');
@@ -36,17 +36,17 @@ class UserSeeder extends Seeder
         $petugas->password = bcrypt("password");
         $petugas->email = "petugas@gmail.com";
         $petugas->namalengkap = "ADADA";
-        $petugas->alamat = "dfsfdf";
+        $petugas->alamat = "Smkn 4 Payakumbuh";
         $petugas->role = "petugas";
         $petugas->save();
         $petugas->assignRole('petugas');
 
         $user = new User();
-        $user->name = "PEMINJAM";
+        $user->name = "RASSID";
         $user->password = bcrypt("password");
         $user->email = "peminjam@gmail.com";
-        $user->namalengkap = "sdfsfsd";
-        $user->alamat = "sdfsdfsd";
+        $user->namalengkap = "Rassid Risda Sulpa";
+        $user->alamat = "Situjuah";
         $user->role = "peminjam";
         $user->save();
         $user->assignRole('user');

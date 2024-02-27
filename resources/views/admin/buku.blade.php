@@ -107,7 +107,7 @@
                           </div>
                           <div class="modal-footer justify-content-between">
                               <button type="button" class="btn btn-default font-weight-bold" data-dismiss="modal">BATAL</button>
-                              <button type="submit" class="btn btn-primary font-weight-bold">SIMPAN</button>
+                              <button type="submit" class="btn btn-primary font-weight-bold ">SIMPAN</button>
                           </div>
                       </form>
                   </div>
@@ -245,16 +245,18 @@
                         <td>{{ $item->tahunterbit }}</td>
                         @role('admin')
                         <td>
-                          <a href="#" class="btn btn-warning btn-sm editBtn" data-toggle="modal" data-target="#modal-editadmin-{{ $item->id }}" data-id="{{ $item->id }}">
-                            <i class="fas fa-edit"></i>
-                        </a>                 
-                          <form action="{{ route('hapus', ['buku' => $item->id]) }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus?')" name="delete_button">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                          </form>
+                            <div class="btn-group btn-group-sm">
+                                <a href="#" class="btn btn-warning  editBtn" data-toggle="modal" data-target="#modal-editadmin-{{ $item->id }}" data-id="{{ $item->id }}">
+                                    <i class="fas fa-edit"></i>
+                                </a>             
+                                    <form action="{{ route('hapus', ['buku' => $item->id]) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="hapusBuku(event, {{ $item->id }})" name="delete_button">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                            </div>
                         </td>
                         @endrole
                         @role('petugas')
@@ -282,6 +284,20 @@
                 @endforeach
             </tbody>
         </table>
+        {{-- <div class="card-footer clearfix">
+            <ul class="pagination pagination-sm m-0 float-right">
+                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+            </ul>
+        </div> --}}
+        <div class="card-footer clearfix">
+            <ul class="pagination pagination-sm m-0 float-right">
+                {{ $buku->links() }}
+            </ul>
+        </div>
     </div>
     
     

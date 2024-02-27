@@ -9,6 +9,7 @@ use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+// use Illuminate\Pagination\LengthAwarePaginator;
 
 class DashboardController extends Controller
 {
@@ -49,9 +50,8 @@ class DashboardController extends Controller
             'alamat' => 'required|string|max:250',
             'email' => 'required|email:dns|max:250|unique:users',
             'password' => 'required|min:8|',
-            'role' => 'required',
         ]);
-
+        $validatedData['role'] = 'petugas';
         $user =  User::create([
             'name' => $validatedData['name'],
             'namalengkap' => $validatedData['namalengkap'],
@@ -99,10 +99,11 @@ class DashboardController extends Controller
         return redirect('/admincreate');
     }
 
-    public function addbuku()
+    public function addbuku(Request $request)
     {
-        
-        $buku = Buku::all();
+        // $perPage = 10;
+        // $buku = Buku::paginate();
+        $buku = Buku::paginate(5);
         return view('admin.masterbuku', ['buku' => $buku]);
     }
 
@@ -183,12 +184,11 @@ class DashboardController extends Controller
         return redirect('/admincreate')->with('succes', 'data berhasil di hapus');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Dashboard $dashboard)
+    public function laporan()
     {
-        //
+        
+        $buku = Buku::all();
+        return view('laporan', ['buku' => $buku]);
     }
     /**
      * Update the specified resource in storage.

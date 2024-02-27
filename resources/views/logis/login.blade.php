@@ -13,10 +13,22 @@
   <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0')}}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('AdminLTE-3.2.0')}}/dist/css/adminlte.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body class="hold-transition login-page">
+
 <div class="login-box">
   <!-- /.login-logo -->
+  @if ($errors->any())
+      <div class="alert alert-danger">
+        <strong>Error!</strong> <br>
+        <ul>
+          @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+  @endif
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
       <a href="/login" class="h1"><b>LOGIN</b></a>
@@ -42,15 +54,11 @@
             </div>
           </div>
         </div>
+        <div class="input-group mb-3">
+          {!! NoCaptcha::renderJs() !!}
+          {!! NoCaptcha::display() !!}
+        </div>
         <div class="row">
-          {{-- <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Remember Me
-              </label>
-            </div>
-          </div> --}}
           <!-- /.col -->
           <div class="col-4">
             <button type="submit" class="btn btn-primary btn-block">Login</button>
@@ -59,19 +67,6 @@
         </div>
       </form>
 
-      {{-- <div class="social-auth-links text-center mt-2 mb-3">
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-        </a>
-      </div>
-      <!-- /.social-auth-links --> --}}
-
-      {{-- <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
-      </p> --}}
       <p class="mb-0">
         <a href="/register" class="text-center">Belum Punya Akun? Daftar Sekarang</a>
       </p>
@@ -90,6 +85,9 @@
 <script src="{{asset('AdminLTE-3.2.0')}}/dist/js/adminlte.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
 
 @if ($message = Session::get('failed'))
     <script>
